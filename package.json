@@ -1,0 +1,10 @@
+{
+  "name": "app",
+  "title": "My app",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "basisjs": "^1.11.1",
+    "semantic-ui": "^2.2.13"
+  }
+}
