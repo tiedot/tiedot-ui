@@ -1,11 +1,3 @@
-HTML,
-BODY
-{
-  height: 100%;
-  padding: 0;
-  margin: 0;
-
-  background: white;
-  color: black;
-  font-size: small;
+.container {
+  margin-top: 5%;
 }
