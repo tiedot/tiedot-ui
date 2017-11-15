@@ -3,6 +3,8 @@ let Value = require('basis.data').Value;
 let router = require('basis.router');
 let currentPage = Value.from(router.route(':page').param('page'));
 let pages = require('../pages/index');
+let Collection = require('app.components.pages.collection.index')
+
 
 let page = router
     .route(':page')
@@ -11,23 +13,25 @@ let page = router
         return pages[page] || pages[''];
     });
 
-module.exports = Node.subclass({
+module.exports = new Node({
     template: resource('./template.tmpl'),
     childClass: {
         template: resource('./item.tmpl'),
         selected: currentPage.compute((node, page) => node.url == page),
         binding: {
             title: 'title',
-            content:'satellite:'
-        },
-        satellite: {
-            content: page
         },
         action: {
             click() {
                 router.navigate(this.url);
             }
-        }
+        },
+    },
+    binding: {
+        content: 'satellite:',
+    },
+    satellite: {
+        content: page
     },
     childNodes: [
         {title: 'Home', url: 'home'},

@@ -1,7 +1,7 @@
 let Node = require('basis.ui').Node;
 
-module.exports = Node.subclass({
-    active: basis.PROXY,
+module.exports = new Node({
+    // active: basis.PROXY,
     template: resource('./template.tmpl'),
     childClass: {
         template: resource('./item.tmpl'),
@@ -10,11 +10,11 @@ module.exports = Node.subclass({
         },
     },
     handler: {
-        activeChanged() {
-            if (this.active) {
-                this.dataSource.deprecate();
-            }
-        }
+        // activeChanged() {
+        //     if (this.active) {
+        //         this.dataSource.deprecate();
+        //     }
+        // }
     },
     childNodes: [
         {title: 'Home'},
