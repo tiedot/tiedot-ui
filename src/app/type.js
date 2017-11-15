@@ -1,5 +1,5 @@
 module.exports = {
-  // TypeName: require('./type/typeName.js')
+  Collection: require('./type/collection.js')
 };
 
 require('basis.entity').validate();
