@@ -36,6 +36,7 @@ module.exports = new Node({
     childNodes: [
         {title: 'Home', url: 'home'},
         {title: 'Collection', url: 'col'},
+       {title: 'Settings', url: 'setting'},
     ]
 });
 
