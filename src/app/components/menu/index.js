@@ -10,13 +10,9 @@ let page = router
     .route(':page')
     .param('page')
     .as(function(page) {
+        console.log( page );
         return pages[page] || pages[''];
     });
-
-// router list collection
-router.add('list-col//:filter', {
-  match: function(id){ page.set(id) },
-});
 
 module.exports = new Node({
     template: resource('./template.tmpl'),

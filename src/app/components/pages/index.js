@@ -1,4 +1,3 @@
-
 let collection = require('./collection/index');
 let listCollection = require('./list_collection/index');
 
