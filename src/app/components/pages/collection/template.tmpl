@@ -1,7 +1,11 @@
 <div>
-	<h4>List Collection</h4>
-	<div class="alert alert-info" b:show="{loading}">загружается...</div>
+	<h4 class="">List Collection</h4>
     <div{childNodesElement} class="ui relaxed divided list"/>
      <div{page} b:hide="{loading}"/>
+
+  <div b:show="{loading}" class="ui active inverted dimmer">
+    <div class="ui text loader">Загрузка</div>
+  </div>
+
 </div>
 
