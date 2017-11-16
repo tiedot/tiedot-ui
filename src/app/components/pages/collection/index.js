@@ -2,6 +2,8 @@ let Node = require('basis.ui').Node;
 let dataCollection = require('app.type.collection')
 let STATE = require('basis.data').STATE;
 let Value = require('basis.data').Value;
+let router = require('basis.router');
+
 
 module.exports = new Node({
     // active: basis.PROXY,
@@ -12,12 +14,10 @@ module.exports = new Node({
         binding: {
             title: 'data:'
         },
-         data : {
-            title : "test"
-        },
           action : {
             chooseCollection(target) {
-                console.log('Hello it me ', this.data.title)
+                router.navigate('list-col/' + this.data.title);
+            
             }
         }
     },
