@@ -4,23 +4,23 @@ let router = require('basis.router');
 let currentPage = Value.from(router.route(':page').param('page'));
 let pages = require('../pages/index');
 let Collection = require('app.components.pages.collection.index')
+let dataCollection = require('app.type.collection')
 
-
-let page = router
-    .route(':page')
-    .param('page')
-    .as(function(page) {
-        console.log( page );
-        return pages[page] || pages[''];
-    });
+// let page = router
+//     .route(':page')
+//     .param('page')
+//     .as(function(page) {
+//         console.log( page );
+//         return pages[page] || pages[''];
+//     });
 
 module.exports = new Node({
     template: resource('./template.tmpl'),
     childClass: {
         template: resource('./item.tmpl'),
-        selected: currentPage.compute((node, page) => node.url == page),
+        // selected: currentPage.compute((node, page) => node.url == page),
         binding: {
-            title: 'title',
+            title: 'data:',
         },
         action: {
             click() {
@@ -28,16 +28,18 @@ module.exports = new Node({
             }
         },
     },
-    binding: {
-        content: 'satellite:',
-    },
-    satellite: {
-        content: page
-    },
-    childNodes: [
-        {title: 'Home', url: 'home'},
-        {title: 'Collection', url: 'col'},
-       {title: 'Settings', url: 'setting'},
-    ]
+
+    // binding: {
+    //     content: 'satellite:',
+    // },
+    // satellite: {
+    //     content: page
+    // },
+    dataSource: dataCollection,
+    // childNodes: [
+    //     {title: 'Home', url: 'home'},
+    //     {title: 'Collection', url: 'col'},
+    //    {title: 'Settings', url: 'setting'},
+    // ]
 });
 

@@ -17,7 +17,6 @@ module.exports = new Node({
           action : {
             chooseCollection(target) {
                 router.navigate('list-col/' + this.data.title);
-            
             }
         }
     },
