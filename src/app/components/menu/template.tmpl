@@ -1,21 +1,19 @@
 <b:style src="./layout.css"/>
 
 <div class="">
-  <!--<div class="ui right aligned grid">-->
-    <!--<div class="left floated right aligned  wide column">-->
-      <!--<div{childNodesElement} class="ui vertical pointing menu "/>-->
-    <!--</div>-->
-
-    <!--<div class="left floated right aligned six wide column middle aligned ">-->
-      <!--&lt;!&ndash;{content}&ndash;&gt;-->
-    <!--</div>-->
-  <!--</div>-->
-  <div class="ui vertical menu ">
+  <div class="ui vertical menu left floated ">
     <div class="item">
       <div class="header">List collection</div>
       <div{childNodesElement} class="menu"/>
-        <!--<a class="item">Enterprise</a>-->
-      <!--</div>-->
+    </div>
+  </div>
+  <div b:show="{contentCollection}" class="ui">
+    <!--data ui collection-->
+    <div class="ui styled fluid accordion">
+      <div class="title"><i class="dropdown icon"></i> Что такое собака? </div>
+      <div class="content">
+        <p>A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.</p>
+      </div>
     </div>
   </div>
 </div>

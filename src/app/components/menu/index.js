@@ -1,17 +1,17 @@
 let Node = require('basis.ui').Node;
-let Value = require('basis.data').Value;
+// let Value = require('basis.data').Value;
 let router = require('basis.router');
-let currentPage = Value.from(router.route(':page').param('page'));
+// let currentPage = Value.from(router.route(':page').param('page'));
 let pages = require('../pages/index');
-let Collection = require('app.components.pages.collection.index')
+// let Collection = require('app.components.pages.collection.index')
 let dataCollection = require('app.type.collection')
 
-// let page = router
-//     .route(':page')
-//     .param('page')
-//     .as(function(page) {
-//         console.log( page );
-//         return pages[page] || pages[''];
+// let collection = router
+//     .route(':collection')
+//     .param('collection')
+//     .as(function(collection) {
+//         console.log( collection );
+//         return pages[collection] || pages[''];
 //     });
 
 module.exports = new Node({
@@ -24,22 +24,20 @@ module.exports = new Node({
         },
         action: {
             click() {
-                router.navigate(this.url);
+                router.navigate(this.data.title);
             }
         },
     },
-
-    // binding: {
-    //     content: 'satellite:',
-    // },
+    data : {
+        contentCollection:true,
+    },
+    binding: {
+        // content: 'satellite:',
+        contentCollection:'data:',
+    },
     // satellite: {
-    //     content: page
+    //     content: collection
     // },
     dataSource: dataCollection,
-    // childNodes: [
-    //     {title: 'Home', url: 'home'},
-    //     {title: 'Collection', url: 'col'},
-    //    {title: 'Settings', url: 'setting'},
-    // ]
 });
 
