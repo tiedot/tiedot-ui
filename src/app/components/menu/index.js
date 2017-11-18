@@ -5,7 +5,7 @@ let router = require('basis.router');
 let pages = require('../pages/index');
 // let Collection = require('app.components.pages.collection.index')
 let dataCollection = require('app.type.collection')
-
+let documents = require('app.components.menu.document.index')
 // let collection = router
 //     .route(':collection')
 //     .param('collection')
@@ -32,12 +32,12 @@ module.exports = new Node({
         contentCollection:true,
     },
     binding: {
-        // content: 'satellite:',
+        documents: 'satellite:',
         contentCollection:'data:',
     },
-    // satellite: {
-    //     content: collection
-    // },
+    satellite: {
+        documents: documents
+    },
     dataSource: dataCollection,
 });
 
