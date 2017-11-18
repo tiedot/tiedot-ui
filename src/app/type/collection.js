@@ -1,9 +1,7 @@
 var entity = require('basis.entity');
-var service = require('app.service');
 let action = require('basis.net.action');
 let Dataset = require('basis.data').Dataset;
 let DataObject = require('basis.data').Object;
-let wrap = require('basis.data').wrap;
 
 //
 // main part
