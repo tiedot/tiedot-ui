@@ -1,7 +1,8 @@
 <b:style src="./layout.css"/>
 
 <div class="">
-  <div class="ui vertical menu left floated ">
+  <div b:show="{loading}" class="ui active loader"></div>
+  <div b:hide="{loading}"  class="ui vertical menu left floated ">
     <div class="item">
       <div class="header">List collection</div>
       <div{childNodesElement} class="menu"/>
