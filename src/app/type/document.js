@@ -5,13 +5,10 @@ let DataObject = require('basis.data').Object;
 
 
 let document = new Dataset({
-    // настриваем синхронизацию
     syncAction: action.create({
-        url: 'http://localhost:8080/col=Friends&page=0&total=1',
+        url: 'http://localhost:8080/getpage?col=Friends&page=0&total=1',
         success(response) {
-            // после завершения загрузки данных, необходимо превратить полученные JS-объекты в DataObject и поместить их в набор
-            // this.set(wrap(response, true));
-            this.set(response.map(data => new DataObject({ data : {title : data}})) )
+            this.set(response.map(data => new DataObject({ data : {json : data}})) )
         }
     }),
 });
