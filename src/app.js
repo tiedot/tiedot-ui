@@ -1,5 +1,5 @@
 let  Node = require('basis.ui').Node;
-let Menu = require('app.components.menu.index');
+let Menu = require('app.components.menu.collection.index');
 let defaultRoute = 'home';
 let router = require('basis.router');
 
