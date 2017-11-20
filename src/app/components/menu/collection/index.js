@@ -11,10 +11,12 @@ module.exports = new Node({
     childClass: ItemCollection,
     data : {
         json : 'json-content',
+        loadingDoc:false,
         contentCollection:true,
     },
     binding: {
         json : 'data:',
+        loadingDoc:'data:',
         loading:Value.query('childNodesState').as(state => state == STATE.PROCESSING),
         contentCollection:'data:',
     },

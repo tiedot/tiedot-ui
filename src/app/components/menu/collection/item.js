@@ -13,6 +13,7 @@ module.exports = Node.subclass({
     },
     action: {
         click() {
+            this.parentNode.update({loadingDoc:true});
             currentCollection.set(this.data.title);
             ajax.request({
                 url: 'http://localhost:8080/getpage?col=' + this.data.title  + '&page=0&total=1',
@@ -22,6 +23,7 @@ module.exports = Node.subclass({
                             el:document.querySelector('.json_area'),
                             data:response
                         });
+                        this.parentNode.update({loadingDoc:false});
                     },
                 }
             });
