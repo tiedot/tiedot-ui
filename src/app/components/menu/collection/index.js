@@ -5,6 +5,7 @@ let dataCollection = require('app.type.collection')
 let Value = require('basis.data').Value;
 let STATE = require('basis.data').STATE;
 let ItemCollection = require('./item');
+let modalCreateCollection = require('app.components.modals.collection.index');
 
 module.exports = new Node({
     template: resource('./template.tmpl'),
@@ -14,11 +15,20 @@ module.exports = new Node({
         loadingDoc:false,
         contentCollection:true,
     },
+    satellite : {
+        modalCreateCol : modalCreateCollection,
+    },
     binding: {
+        modalCreateCol : 'satellite:',
         json : 'data:',
         loadingDoc:'data:',
         loading:Value.query('childNodesState').as(state => state == STATE.PROCESSING),
         contentCollection:'data:',
+    },
+    action : {
+        createCollection(){
+            console.log( 'click create collection' );
+        }
     },
     dataSource: dataCollection,
 });

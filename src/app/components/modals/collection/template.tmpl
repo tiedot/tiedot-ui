@@ -1,0 +1,15 @@
+<b:define name="active" from="selected" type="bool"/>
+
+<div class="ui {active} modal">
+    <div class="header">Create collection</div>
+    <div class="content">
+        <p>Name collection</p>
+        <div class="ui input">
+            <input type="text" placeholder="test" event-input="enterCollection">
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui approve button" event-click="save">Save</div>
+        <div class="ui cancel button" event-click="cancel">Cancel</div>
+    </div>
+</div>
