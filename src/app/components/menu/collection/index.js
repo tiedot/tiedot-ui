@@ -8,6 +8,7 @@ let ItemCollection = require('./item');
 let modalCreateCollection = require('app.components.modals.collection.index');
 
 module.exports = new Node({
+    active:true,
     template: resource('./template.tmpl'),
     childClass: ItemCollection,
     data : {
