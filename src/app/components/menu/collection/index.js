@@ -27,7 +27,7 @@ module.exports = new Node({
     },
     action : {
         createCollection(){
-            console.log( 'click create collection' );
+            this.satellite.modalCreateCol.select();
         }
     },
     dataSource: dataCollection,
