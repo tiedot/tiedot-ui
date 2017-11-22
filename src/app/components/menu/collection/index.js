@@ -4,6 +4,7 @@ let dataCollection = require('app.type.collection')
 let Value = require('basis.data').Value;
 let STATE = require('basis.data').STATE;
 let ItemCollection = require('./item');
+let settings = require('../../../settings/server-config.json');
 let modalCreateCollection = require('app.components.modals.collection.index');
 
 module.exports = new Node({
@@ -28,6 +29,9 @@ module.exports = new Node({
     },
     action : {
         createCollection(){
+            this.satellite.modalCreateCol.urlFn = function (inputValue) {
+             return `${settings.host}/create?col=${inputValue}`
+             },
             this.satellite.modalCreateCol.select();
         },
     },
