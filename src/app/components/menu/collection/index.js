@@ -7,9 +7,10 @@ let ItemCollection = require('./item');
 let modalCreateCollection = require('app.components.modals.collection.index');
 
 module.exports = new Node({
-    active:true,
+    active: true,
     template: resource('./template.tmpl'),
     childClass: ItemCollection,
+    dataSource: dataCollection,
     data : {
         json : 'json-content',
         loadingDoc:false,
@@ -28,8 +29,7 @@ module.exports = new Node({
     action : {
         createCollection(){
             this.satellite.modalCreateCol.select();
-        }
+        },
     },
-    dataSource: dataCollection,
 });
 

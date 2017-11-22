@@ -29,15 +29,7 @@ module.exports = Node.subclass({
             });
         },
         remove(){
-            console.log( this );
-            // ajax.request({
-            //     url: `http://localhost:8080/drop?col=${this.tmpl.collection.innerText.trim()}`,
-            //     handler: {
-            //         success: (transport, request, response) => {
-            //
-            //         },
-            //     }
-            // });
+            this.parentNode.dataSource.remove(this.tmpl.collection.innerText);
         }
     }
 });
