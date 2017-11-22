@@ -1,16 +1,23 @@
 let Node = require('basis.ui').Node;
 let ajax = basis.require('basis.net.ajax');
+let dataCollection = require('app.type.collection')
 
 module.exports = new Node.subclass({
     template: resource('./template.tmpl'),
-    selected:false,
+    disabled:false,
+    selected:true,
     action : {
         save(){
+            this.disable();
+            let input = this.tmpl.input;
             ajax.request({
-                url: `http://localhost:8080/create?col=${this.tmpl.input.value.trim()}&page=0&total=1`,
+                url: `http://localhost:8080/create?col=${input.value.trim()}&page=0&total=1`,
                 handler: {
                     success: (transport, request, response) => {
-                       console.log( response );
+                        dataCollection.deprecate();
+                        this.unselect();
+                        input.value = '';
+                        this.enable();
                     },
                 }
             });
