@@ -2,7 +2,6 @@ let Node = require('basis.ui').Node;
 let ajax = basis.require('basis.net.ajax');
 let Value = require('basis.data').Value;
 let currentCollection = new Value();
-var STATE = basis.require('basis.data').STATE;
 
 module.exports = Node.subclass({
     template: resource('./item.tmpl'),

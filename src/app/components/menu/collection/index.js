@@ -1,6 +1,5 @@
 let Node = require('basis.ui').Node;
 let router = require('basis.router');
-let pages = require('../../pages/index');
 let dataCollection = require('app.type.collection')
 let Value = require('basis.data').Value;
 let STATE = require('basis.data').STATE;
