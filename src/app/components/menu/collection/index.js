@@ -1,6 +1,6 @@
 let Node = require('basis.ui').Node;
 let router = require('basis.router');
-let dataCollection = require('app.type.collection')
+let dataCollection = require('app.type.collection');
 let Value = require('basis.data').Value;
 let STATE = require('basis.data').STATE;
 let ItemCollection = require('./item');
@@ -13,6 +13,7 @@ module.exports = new Node({
     childClass: ItemCollection,
     dataSource: dataCollection,
     data : {
+        dataSetDoc:null,
         editor:null,
         json : 'json-content',
         loadingDoc:false,
@@ -36,7 +37,7 @@ module.exports = new Node({
             this.satellite.modalCreateCol.select();
         },
         saveEditor(){
-            console.log(this.data.editor.get());
+            console.log(this.data, this.data.editor.get());
         },
         destroyEditor(){
             this.data.editor.destroy()
