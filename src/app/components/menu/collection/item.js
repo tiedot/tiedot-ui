@@ -16,24 +16,17 @@ module.exports = Node.subclass({
         click() {
             this.parentNode.update({loadingDoc:true});
             currentCollection.set(this.data.title);
+
             ajax.request({
                 url: 'http://localhost:8080/getpage?col=' + this.data.title  + '&page=0&total=1',
                 handler: {
                     success: (transport, request, response) => {
-                        // new PrettyJSON.view.Node({
-                        //     el:document.querySelector('.json_area'),
-                        //     data:response
-                        // });
                         this.parentNode.update({loadingDoc:false});
-
                         // -------------
-                        // create the editor
-                        var container = document.querySelector('.json_area');
-                        var options = {};
-                        var editor = new JSONEditor(container, options);
-
-                        editor.set(response);
-                        // var json = editor.get();
+                        let container = document.querySelector('.json_area');
+                        this.parentNode.data.editor && this.parentNode.data.editor.destroy();
+                        this.parentNode.data.editor = new JSONEditor(container, {});
+                        this.parentNode.data.editor.set(response);
                     },
                 }
             });

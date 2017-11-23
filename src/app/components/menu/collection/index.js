@@ -13,6 +13,7 @@ module.exports = new Node({
     childClass: ItemCollection,
     dataSource: dataCollection,
     data : {
+        editor:null,
         json : 'json-content',
         loadingDoc:false,
         contentCollection:true,
@@ -31,9 +32,15 @@ module.exports = new Node({
         createCollection(){
             this.satellite.modalCreateCol.urlFn = function (inputValue) {
              return `${settings.host}/create?col=${inputValue}`
-             },
+             };
             this.satellite.modalCreateCol.select();
         },
+        saveEditor(){
+            console.log(this.data.editor.get());
+        },
+        destroyEditor(){
+            this.data.editor.destroy()
+        }
     },
 });
 
