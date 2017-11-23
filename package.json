@@ -5,6 +5,7 @@
   "private": true,
   "dependencies": {
     "basisjs": "^1.11.1",
+    "jsoneditor": "^5.11.0",
     "semantic-ui": "^2.2.13"
   },
   "devDependencies": {

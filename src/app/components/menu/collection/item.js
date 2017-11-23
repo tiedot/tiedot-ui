@@ -20,11 +20,20 @@ module.exports = Node.subclass({
                 url: 'http://localhost:8080/getpage?col=' + this.data.title  + '&page=0&total=1',
                 handler: {
                     success: (transport, request, response) => {
-                        new PrettyJSON.view.Node({
-                            el:document.querySelector('.json_area'),
-                            data:response
-                        });
+                        // new PrettyJSON.view.Node({
+                        //     el:document.querySelector('.json_area'),
+                        //     data:response
+                        // });
                         this.parentNode.update({loadingDoc:false});
+
+                        // -------------
+                        // create the editor
+                        var container = document.querySelector('.json_area');
+                        var options = {};
+                        var editor = new JSONEditor(container, options);
+
+                        editor.set(response);
+                        // var json = editor.get();
                     },
                 }
             });
