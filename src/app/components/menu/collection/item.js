@@ -1,8 +1,7 @@
 let Node = require('basis.ui').Node;
 let ajax = basis.require('basis.net.ajax');
 let Value = require('basis.data').Value;
-let Dataset = require('basis.data').Dataset;
-let DataObject = require('basis.data').Object;
+
 let currentCollection = new Value();
 let settings = require('../../../settings/server-config.json');
 
@@ -23,12 +22,9 @@ module.exports = Node.subclass({
                 url: 'http://localhost:8080/getpage?col=' + this.data.title  + '&page=0&total=1',
                 handler: {
                     success: (transport, request, response) => {
-
                         this.parentNode.update({
                             loadingDoc:false,
-                            dataSetDoc: new Dataset().set(new DataObject({
-                                data : response
-                            }))
+                            dataSetDoc: response
                         });
                         // -------------
                         let container = document.querySelector('.json_area');
