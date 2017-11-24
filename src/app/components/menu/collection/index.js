@@ -12,6 +12,10 @@ module.exports = new Node({
     active: true,
     template: resource('./template.tmpl'),
     childClass: ItemCollection,
+    sortingDesc: false,
+    sorting: function(child){
+        return child.data.title;
+    },
     dataSource: dataCollection,
     data : {
         dataSetDoc:null,
