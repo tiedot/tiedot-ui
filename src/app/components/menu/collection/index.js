@@ -2,6 +2,10 @@ let Node = require('basis.ui').Node;
 let router = require('basis.router');
 let dataCollection = require('app.type.collection');
 let Value = require('basis.data').Value;
+let Subtract = basis.require('basis.data.dataset').Subtract;
+let Dataset = require('basis.data').Dataset;
+let DataObject = require('basis.data').Object;
+let wrap = require('basis.data').wrap;
 let STATE = require('basis.data').STATE;
 let ItemCollection = require('./item');
 let settings = require('../../../settings/server-config.json');
@@ -37,7 +41,14 @@ module.exports = new Node({
             this.satellite.modalCreateCol.select();
         },
         saveEditor(){
-            console.log(this.data, this.data.editor.get());
+            let subtract = new Subtract({
+                minuend: this.data.dataSetDoc,
+                subtrahend: new Dataset({
+                    items:wrap(this.data.editor.get(), true),
+                }),
+            });
+            console.log( wrap(this.data.editor.get(), true), 'datasets' );
+            console.log(this.data.dataSetDoc, this.data.editor.get(), subtract.getValues('data.value'));
         },
         destroyEditor(){
             this.data.editor.destroy()
