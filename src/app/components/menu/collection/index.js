@@ -3,6 +3,7 @@ let router = require('basis.router');
 let dataCollection = require('app.type.collection');
 let Value = require('basis.data').Value;
 let STATE = require('basis.data').STATE;
+let ajax = basis.require('basis.net.ajax');
 let ItemCollection = require('./item');
 let settings = require('../../../settings/server-config.json');
 let modalCreateCollection = require('app.components.modals.collection.index');
@@ -37,13 +38,29 @@ module.exports = new Node({
             this.satellite.modalCreateCol.select();
         },
         saveEditor(){
+            let selectedColName = this.childNodes.find(function(child){
+                if(child.selected) {
+                    return true;
+                }
+            }).data.title;
             // to determine the mode of
             // create
             if (!Object.keys(this.data.dataSetDoc).length) {
-                console.log( this.data.editor.get() );
+                ajax.request({
+                    url: `${settings.host}/insert?col=${selectedColName}`,
+                    params: {
+                        doc: JSON.stringify(this.data.editor.get())
+                    },
+                    handler: {
+                        success: function(transport, request, response){
+                            console.log('response data:', response);
+                        },
+                        failure: function(transport, request, error){
+                            console.log('response error:', error);
+                        }
+                    }
+                });
             }
-            console.log( this );
-            // url ${settings.host}/insert?col=Feeds
         },
         destroyEditor(){
             this.data.editor.destroy()
