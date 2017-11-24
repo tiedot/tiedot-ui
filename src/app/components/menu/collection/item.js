@@ -1,22 +1,32 @@
 let Node = require('basis.ui').Node;
 let ajax = basis.require('basis.net.ajax');
 let Value = require('basis.data').Value;
-
-let currentCollection = new Value();
 let settings = require('../../../settings/server-config.json');
+let router = require('basis.router');
+let currentPage = Value.from(router.route(':page').param('page'));
+
+// let currentCollection = new Value();
 
 module.exports = Node.subclass({
     template: resource('./item.tmpl'),
-    selected: currentCollection.compute((child, name) => {
-        return child.data.title === name;
-    }),
+    selected: currentPage.compute((node, page) => node.data.title == page),
     binding: {
         title: 'data:',
     },
+    handler: {
+        ownerChanged() {
+            if (this.owner) {
+                console.log(  this.dataSource);
+                // this.dataSource.deprecate();
+            }
+        }
+    },
     action: {
         click() {
+            router.navigate(this.data.title);
+
             this.parentNode.update({loadingDoc:true});
-            currentCollection.set(this.data.title);
+            // currentCollection.set(this.data.title);
 
             ajax.request({
                 url: 'http://localhost:8080/getpage?col=' + this.data.title  + '&page=0&total=1',

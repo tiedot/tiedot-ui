@@ -1,3 +1,10 @@
 <div>
-  <code class="json_area"></code>
+  <div b:show="{contentCollection}" class="ui">
+    <div class="center aligned two column row" style="margin-left: 30%">
+      <div b:show="{loadingDoc}" class="ui active loader"></div>
+      <div class="json_area"></div>
+      <button class="ui secondary button" event-click="saveEditor">Okay </button>
+      <button class="ui button" event-click="destroyEditor">Cancel </button>
+    </div>
+</div>
 </div>

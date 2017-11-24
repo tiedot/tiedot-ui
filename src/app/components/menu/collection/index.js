@@ -58,9 +58,6 @@ module.exports = new Node({
                     handler: {
                         success: function(transport, request, response){
                             console.log('response data:', response);
-                        },
-                        failure: function(transport, request, error){
-                            console.log('response error:', error);
                         }
                     }
                 });
