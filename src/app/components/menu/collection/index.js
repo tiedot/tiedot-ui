@@ -8,6 +8,7 @@ let ItemCollection = require('./item');
 let settings = require('../../../settings/server-config.json');
 let modalCreateCollection = require('app.components.modals.collection.index');
 let dataDocument = require('app.type.document');
+let jseditor = require('app.utils.jseditor');
 
 module.exports = new Node({
     active: true,
@@ -19,8 +20,8 @@ module.exports = new Node({
     },
     dataSource: dataCollection,
     data : {
-        dataSetDoc:null, // source json
-        editor:null,
+        // dataSetDoc:null, // source json
+        // editor:null,
         json : 'json-content',
     },
     satellite : {
@@ -29,7 +30,7 @@ module.exports = new Node({
     binding: {
         modalCreateCol : 'satellite:',
         json : 'data:',
-        documentReady:Value.query('data.dataSetDoc').as( doc =>  doc === null ? false : true ),
+        documentReady:jseditor.lastJson.as( doc =>  doc == null ? false : true ),
         loadingDoc: Value.state(dataDocument).as(state => state == STATE.PROCESSING),
         loading: Value.query('childNodesState').as(state => state == STATE.PROCESSING),
     },
@@ -46,24 +47,20 @@ module.exports = new Node({
                     return true;
                 }
             }).data.title;
+
             // to determine the mode of
             // create
-            if (!Object.keys(this.data.dataSetDoc).length) {
-                console.log( 'save new' );
-                dataDocument.create(selectedColName, this.data.editor.get())
+            if (jseditor.isNewDocument()) {
+                dataDocument.create(selectedColName, jseditor.getJson())
             }
-            this.update({
-                dataSetDoc : null
-            });
 
-            // this.data.editor.destroy();
+            dataDocument.get(selectedColName).then(() => {
+                jseditor.render('.json_area', dataDocument.data.json, true);
+            });
         },
         destroyEditor(){
             dataDocument.setState(STATE.UNDEFINED);
-            this.update({
-                dataSetDoc : null
-            });
-            this.data.editor.destroy();
+            jseditor.destroy()
         }
     },
 });

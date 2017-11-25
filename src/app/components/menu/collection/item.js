@@ -4,6 +4,7 @@ let Value = require('basis.data').Value;
 let settings = require('../../../settings/server-config.json');
 let currentCollection = new Value();
 let dataDocument = require('app.type.document');
+let jseditor = require('app.utils.jseditor');
 
 module.exports = Node.subclass({
     template: resource('./item.tmpl'),
@@ -15,18 +16,14 @@ module.exports = Node.subclass({
     },     
     action: {
         click() {
-            let collName = this.data.title;
+            currentCollection.set(this.data.title);
 
-            currentCollection.set(collName);
-            dataDocument.get(collName).then(() => {
-                 let container = document.querySelector('.json_area');
-                 this.parentNode.data.editor && this.parentNode.data.editor.destroy();
-                 this.parentNode.data.editor = new JSONEditor(container, {});
-                 this.parentNode.data.editor.set(dataDocument.data.json);
+            dataDocument.get(this.data.title).then(() => {
+                jseditor.render('.json_area', dataDocument.data.json, true);
 
-                   this.parentNode.update({
-                       dataSetDoc: dataDocument.data.json
-                        });
+                   // this.parentNode.update({
+                   //     dataSetDoc: dataDocument.data.json
+                   //      });
             });
         },
         remove(){
