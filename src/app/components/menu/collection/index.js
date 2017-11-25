@@ -7,6 +7,7 @@ let ajax = basis.require('basis.net.ajax');
 let ItemCollection = require('./item');
 let settings = require('../../../settings/server-config.json');
 let modalCreateCollection = require('app.components.modals.collection.index');
+let dataDocument = require('app.type.document');
 
 module.exports = new Node({
     active: true,
@@ -21,7 +22,6 @@ module.exports = new Node({
         dataSetDoc:null,
         editor:null,
         json : 'json-content',
-        loadingDoc:false,
         contentCollection:true,
     },
     satellite : {
@@ -30,8 +30,8 @@ module.exports = new Node({
     binding: {
         modalCreateCol : 'satellite:',
         json : 'data:',
-        loadingDoc:'data:',
-        loading:Value.query('childNodesState').as(state => state == STATE.PROCESSING),
+        loadingDoc: Value.state(dataDocument).as(state => state == STATE.PROCESSING),
+        loading: Value.query('childNodesState').as(state => state == STATE.PROCESSING),
         contentCollection:'data:',
     },
     action : {

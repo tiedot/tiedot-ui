@@ -2,7 +2,7 @@ let Node = require('basis.ui').Node;
 let dataDocument = require('app.type.document')
 
 module.exports = new Node({
-    active:basis.PROXY,
+    active: basis.PROXY,
     template: resource('./template.tmpl'),
     action : {
 
@@ -10,10 +10,13 @@ module.exports = new Node({
     data : {
         prettyJson : '',
     },
-    childClass: {
-        binding: {
-            number: 'data:',
-        },
+    handler: {
+        activeChanged() {
+            if (this.active) {
+                console.log( 'change active' );
+                // this.dataSource.deprecate();
+            }
+        }
     },
     dataSource: dataDocument,
 });
