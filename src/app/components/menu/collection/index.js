@@ -29,7 +29,7 @@ module.exports = new Node({
     binding: {
         modalCreateCol : 'satellite:',
         json : 'data:',
-        documentReady:Value.state(dataDocument).as(state => state == STATE.READY || state == STATE.PROCESSING),
+        documentReady:Value.query('data.dataSetDoc').as( doc =>  doc === null ? false : true ),
         loadingDoc: Value.state(dataDocument).as(state => state == STATE.PROCESSING),
         loading: Value.query('childNodesState').as(state => state == STATE.PROCESSING),
     },
@@ -49,21 +49,20 @@ module.exports = new Node({
             // to determine the mode of
             // create
             if (!Object.keys(this.data.dataSetDoc).length) {
-                ajax.request({
-                    url: `${settings.host}/insert?col=${selectedColName}`,
-                    params: {
-                        doc: JSON.stringify(this.data.editor.get())
-                    },
-                    handler: {
-                        success: function(transport, request, response){
-                            console.log('response data:', response);
-                        }
-                    }
-                });
+                console.log( 'save new' );
+                dataDocument.create(selectedColName, this.data.editor.get())
             }
+            this.update({
+                dataSetDoc : null
+            });
+
+            // this.data.editor.destroy();
         },
         destroyEditor(){
             dataDocument.setState(STATE.UNDEFINED);
+            this.update({
+                dataSetDoc : null
+            });
             this.data.editor.destroy();
         }
     },
