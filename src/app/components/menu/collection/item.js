@@ -12,23 +12,22 @@ module.exports = Node.subclass({
     }),
     binding: {
         title: 'data:',
-        json: dataDocument,
     },     
     action: {
         click() {
             let collName = this.data.title;
 
             currentCollection.set(collName);
-            dataDocument.get(collName);
+            dataDocument.get(collName).then(() => {
+                 let container = document.querySelector('.json_area');
+                 this.parentNode.data.editor && this.parentNode.data.editor.destroy();
+                 this.parentNode.data.editor = new JSONEditor(container, {});
+                 this.parentNode.data.editor.set(dataDocument.data.json);
 
-            let container = document.querySelector('.json_area');
-            this.parentNode.data.editor && this.parentNode.data.editor.destroy();
-            this.parentNode.data.editor = new JSONEditor(container, {});
-            this.parentNode.data.editor.set(dataDocument.data.json);
-
-           this.parentNode.update({
-                dataSetDoc: dataDocument.data.json
-               });
+                   this.parentNode.update({
+                       dataSetDoc: dataDocument.data.json
+                        });
+            });
         },
         remove(){
             this.parentNode.dataSource.remove(this.tmpl.collection.innerText);

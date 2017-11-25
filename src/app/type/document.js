@@ -7,16 +7,19 @@ let STATE = require('basis.data').STATE;
 let document = new DataObject({
     get(collectName){
         this.setState(STATE.PROCESSING);
-        ajax.request({
-            url: 'http://localhost:8080/getpage?col=' + collectName+ '&page=0&total=1',
-            handler: {
-                success: (transport, request, response) => {
-                    this.setState(STATE.READY);
-                    this.update({
-                        json : response
-                    })
-                },
-            }
+        return new Promise((resolve, reject) => {
+            ajax.request({
+                url: 'http://localhost:8080/getpage?col=' + collectName+ '&page=0&total=1',
+                handler: {
+                    success: (transport, request, response) => {
+                        this.setState(STATE.READY);
+                        this.update({
+                            json : response
+                        });
+                        resolve()
+                    },
+                }
+            });
         });
     }
 });
