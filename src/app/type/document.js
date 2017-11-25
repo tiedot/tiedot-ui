@@ -1,6 +1,5 @@
 let entity = require('basis.entity');
 let action = require('basis.net.action');
-let Dataset = require('basis.data').Dataset;
 let DataObject = require('basis.data').Object;
 let ajax = basis.require('basis.net.ajax');
 let STATE = require('basis.data').STATE;

@@ -19,10 +19,9 @@ module.exports = new Node({
     },
     dataSource: dataCollection,
     data : {
-        dataSetDoc:null,
+        dataSetDoc:null, // source json
         editor:null,
         json : 'json-content',
-        contentCollection:true,
     },
     satellite : {
         modalCreateCol : modalCreateCollection,
@@ -30,9 +29,9 @@ module.exports = new Node({
     binding: {
         modalCreateCol : 'satellite:',
         json : 'data:',
+        documentReady:Value.state(dataDocument).as(state => state == STATE.READY || state == STATE.PROCESSING),
         loadingDoc: Value.state(dataDocument).as(state => state == STATE.PROCESSING),
         loading: Value.query('childNodesState').as(state => state == STATE.PROCESSING),
-        contentCollection:'data:',
     },
     action : {
         createCollection(){
@@ -64,7 +63,8 @@ module.exports = new Node({
             }
         },
         destroyEditor(){
-            this.data.editor.destroy()
+            dataDocument.setState(STATE.UNDEFINED);
+            this.data.editor.destroy();
         }
     },
 });
