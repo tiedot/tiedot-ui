@@ -3,27 +3,27 @@ let ajax = basis.require('basis.net.ajax');
 let Value = require('basis.data').Value;
 let settings = require('../../../settings/server-config.json');
 let router = require('basis.router');
-let currentPage = Value.from(router.route(':page').param('page'));
-
+let currentCol = Value.from(router.route('collect:page').param('page'));
+// let dataDocument = require('app.type.document');
 // let currentCollection = new Value();
-
+// console.log( dataDocument );
 module.exports = Node.subclass({
     template: resource('./item.tmpl'),
-    selected: currentPage.compute((node, page) => node.data.title == page),
+    selected: currentCol.compute((node, page) => node.data.title == page),
     binding: {
         title: 'data:',
     },
-    handler: {
-        ownerChanged() {
-            if (this.owner) {
-                console.log(  this.dataSource);
-                // this.dataSource.deprecate();
-            }
-        }
-    },
+    // handler: {
+    //     ownerChanged() {
+    //         if (this.owner) {
+    //             console.log(  this.dataSource);
+    //             // this.dataSource.deprecate();
+    //         }
+    //     }
+    // },
     action: {
         click() {
-            router.navigate(this.data.title);
+            router.navigate(`collect${this.data.title}`);
 
             this.parentNode.update({loadingDoc:true});
             // currentCollection.set(this.data.title);

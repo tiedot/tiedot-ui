@@ -1,5 +1,5 @@
 let Node = require('basis.ui').Node;
-// let dataDocument = require('app.type.document')
+let dataDocument = require('app.type.document')
 
 module.exports = new Node({
     active:true,
@@ -14,5 +14,5 @@ module.exports = new Node({
             number: 'data:',
         },
     },
-    // dataSource: dataDocument,
+    dataSource: dataDocument,
 });
