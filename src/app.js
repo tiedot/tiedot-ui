@@ -2,7 +2,7 @@ let  Node = require('basis.ui').Node;
 let Menu = require('app.components.menu.collection.index');
 let router = require('basis.router');
 let jsonEditor = resource('./app/components/menu/document/index.js');
-
+let notFound  = resource('./app/components/notfound/index.js');
 module.exports = require('basis.app').create({
   title: 'Tiedot',
   init: function(){
@@ -14,7 +14,7 @@ module.exports = require('basis.app').create({
       },
         satellite: {
             menu: Menu,
-            jsonEditor:router.route('collect:page').param('page').as(() => jsonEditor)
+            jsonEditor:router.route('collect:page').param('page').as( page => page ? jsonEditor : notFound)
         }
     });
   }

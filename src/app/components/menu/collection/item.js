@@ -25,25 +25,25 @@ module.exports = Node.subclass({
         click() {
             router.navigate(`collect${this.data.title}`);
 
-            this.parentNode.update({loadingDoc:true});
+            // this.parentNode.update({loadingDoc:true});
             // currentCollection.set(this.data.title);
 
-            ajax.request({
-                url: 'http://localhost:8080/getpage?col=' + this.data.title  + '&page=0&total=1',
-                handler: {
-                    success: (transport, request, response) => {
-                        this.parentNode.update({
-                            loadingDoc:false,
-                            dataSetDoc: response
-                        });
-                        // -------------
-                        let container = document.querySelector('.json_area');
-                        this.parentNode.data.editor && this.parentNode.data.editor.destroy();
-                        this.parentNode.data.editor = new JSONEditor(container, {});
-                        this.parentNode.data.editor.set(response);
-                    },
-                }
-            });
+            // ajax.request({
+            //     url: 'http://localhost:8080/getpage?col=' + this.data.title  + '&page=0&total=1',
+            //     handler: {
+            //         success: (transport, request, response) => {
+            //             this.parentNode.update({
+            //                 loadingDoc:false,
+            //                 dataSetDoc: response
+            //             });
+            //             // -------------
+            //             let container = document.querySelector('.json_area');
+            //             this.parentNode.data.editor && this.parentNode.data.editor.destroy();
+            //             this.parentNode.data.editor = new JSONEditor(container, {});
+            //             this.parentNode.data.editor.set(response);
+            //         },
+            //     }
+            // });
         },
         remove(){
             this.parentNode.dataSource.remove(this.tmpl.collection.innerText);

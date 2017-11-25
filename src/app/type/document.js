@@ -12,6 +12,7 @@ let document = new Dataset({
         },
         prepare(collect){
             // this.set('collectName', collect);
+
             console.log( this );
         }
     }),
