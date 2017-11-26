@@ -2,7 +2,11 @@
 
 <div>
   <!--{modalCreateCol}-->
-  <div b:show="{loading}" class="ui active loader"></div>
+
+  <div b:show="{loading}" >
+    <!--{preLoader}-->
+  </div>
+
   <div b:hide="{loading}"  class="ui vertical menu left floated">
     <div class="item">
       <i class="plus icon create" event-click="createCollection"></i>
@@ -10,6 +14,7 @@
       <div{childNodesElement} class="menu"/>
     </div>
   </div>
+
   <div b:show="{documentReady}" class="ui">
     <div class="center aligned two column row" style="margin-left: 30%">
       <div b:show="{loadingDoc}" class="ui active loader"></div>
@@ -18,5 +23,6 @@
         <button class="ui button" event-click="destroyEditor">Cancel </button>
     </div>
   </div>
+
 </div>
 

@@ -1,6 +1,6 @@
 let Node = require('basis.ui').Node;
 let router = require('basis.router');
-let dataCollection = require('app.type.collection');
+let dataCollection = require('app.type').Collection;
 let Value = require('basis.data').Value;
 let STATE = require('basis.data').STATE;
 let ajax = basis.require('basis.net.ajax');
@@ -9,6 +9,7 @@ let settings = require('../../../settings/server-config.json');
 let modalCreateCollection = require('app.components.modals.collection.index');
 let dataDocument = require('app.type.document');
 let jseditor = require('app.utils.jseditor');
+let preloader = require('app.components.preloader.index');
 
 module.exports = new Node({
     active: true,
@@ -20,9 +21,11 @@ module.exports = new Node({
     },
     dataSource: dataCollection,
     satellite : {
+        preLoader:preloader,
         modalCreateCol : modalCreateCollection,
     },
     binding: {
+        preLoader:'satellite:',
         modalCreateCol : 'satellite:',
         documentReady:jseditor.lastJson.as( doc =>  doc == null ? false : true),
         loadingDoc: Value.state(dataDocument).as(state => state == STATE.PROCESSING),
@@ -46,7 +49,8 @@ module.exports = new Node({
             // create
             let newItems = jseditor.isNewDocument();
             if (Object.keys(newItems).length > 0) {
-                dataDocument.create(selectedColName, newItems)
+                dataDocument.create(selectedColName, newItems);
+                return defer();
             }
 
             // delete
@@ -54,21 +58,25 @@ module.exports = new Node({
             if (deletedItems.length > 0) {
                 dataDocument.delete(selectedColName, deletedItems).then(() => {
                     dataDocument.setState(STATE.READY);
-                })
+                });
+                return defer();
             }
+
             // update
             let updatedItems = jseditor.isUpdate();
-
             if (Object.keys(updatedItems).length > 0) {
                 dataDocument.updateDoc(selectedColName, updatedItems).then(() => {
                     dataDocument.setState(STATE.READY);
-                })
+                });
+                return defer();
             }
 
-            // after operations
-            dataDocument.get(selectedColName).then(() => {
-                jseditor.render('.json_area', dataDocument.data.json, true);
-            });
+            function defer() {
+                // after operations, update doc
+                dataDocument.get(selectedColName).then(() => {
+                    jseditor.render('.json_area', dataDocument.data.json, true);
+                });
+            }
         },
         destroyEditor(){
             dataDocument.setState(STATE.UNDEFINED);

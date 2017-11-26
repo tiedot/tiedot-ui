@@ -41,7 +41,7 @@ let Editor = {
             }
         });
          return updatedItems;
-    }
+    },
 };
 
 module.exports = Editor;

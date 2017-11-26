@@ -71,6 +71,7 @@ let document = new DataObject({
                 })
             });
         return Promise.all(mapPromises);
-    }
+    },
+
 });
 module.exports = document;

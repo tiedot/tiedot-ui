@@ -20,10 +20,6 @@ module.exports = Node.subclass({
 
             dataDocument.get(this.data.title).then(() => {
                 jseditor.render('.json_area', dataDocument.data.json, true);
-
-                   // this.parentNode.update({
-                   //     dataSetDoc: dataDocument.data.json
-                   //      });
             });
         },
         remove(){
