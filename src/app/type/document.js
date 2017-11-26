@@ -52,6 +52,25 @@ let document = new DataObject({
             })
         });
         return Promise.all(mapPromises);
+    },
+    updateDoc(collectName, updatedItems){
+        this.setState(STATE.PROCESSING);
+        let mapPromises = Object.keys(updatedItems).map(function(id) {
+                return new Promise( (resolve, reject) => {
+                    ajax.request({
+                        url: `${settings.host}/update?col=${collectName}&id=${id}`,
+                        params: {
+                            doc: JSON.stringify(updatedItems[id])
+                        },
+                        handler: {
+                            success: (transport, request, response) => {
+                                resolve();
+                            }
+                        }
+                    });
+                })
+            });
+        return Promise.all(mapPromises);
     }
 });
 module.exports = document;

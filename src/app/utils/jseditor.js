@@ -1,3 +1,4 @@
+let deepEqual = require('./deepEqual').deepEqual;
 let Value = require('basis.data').Value;
 
 let Editor = {
@@ -33,7 +34,13 @@ let Editor = {
         });
     },
     isUpdate: function () {
-
+        let updatedItems = {};
+         Object.keys(this.lastJson.value).map((value) => {
+            if (!deepEqual(this.lastJson.value[value], this.getJson()[value])) {
+                updatedItems[value] = this.getJson()[value]
+            }
+        });
+         return updatedItems;
     }
 };
 

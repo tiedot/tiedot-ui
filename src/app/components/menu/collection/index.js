@@ -19,18 +19,12 @@ module.exports = new Node({
         return child.data.title;
     },
     dataSource: dataCollection,
-    data : {
-        // dataSetDoc:null, // source json
-        // editor:null,
-        json : 'json-content',
-    },
     satellite : {
         modalCreateCol : modalCreateCollection,
     },
     binding: {
         modalCreateCol : 'satellite:',
-        json : 'data:',
-        documentReady:jseditor.lastJson.as( doc =>  doc == null ? false : true ),
+        documentReady:jseditor.lastJson.as( doc =>  doc == null ? false : true),
         loadingDoc: Value.state(dataDocument).as(state => state == STATE.PROCESSING),
         loading: Value.query('childNodesState').as(state => state == STATE.PROCESSING),
     },
@@ -62,12 +56,19 @@ module.exports = new Node({
                     dataDocument.setState(STATE.READY);
                 })
             }
+            // update
+            let updatedItems = jseditor.isUpdate();
 
+            if (Object.keys(updatedItems).length > 0) {
+                dataDocument.updateDoc(selectedColName, updatedItems).then(() => {
+                    dataDocument.setState(STATE.READY);
+                })
+            }
 
             // after operations
-            // dataDocument.get(selectedColName).then(() => {
-            //     jseditor.render('.json_area', dataDocument.data.json, true);
-            // });
+            dataDocument.get(selectedColName).then(() => {
+                jseditor.render('.json_area', dataDocument.data.json, true);
+            });
         },
         destroyEditor(){
             dataDocument.setState(STATE.UNDEFINED);
