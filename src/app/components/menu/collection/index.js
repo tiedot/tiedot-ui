@@ -50,9 +50,11 @@ module.exports = new Node({
 
             // to determine the mode of
             // create
-            if (jseditor.isNewDocument()) {
-                dataDocument.create(selectedColName, jseditor.getJson())
+            let newItems = jseditor.isNewDocument();
+            if (Object.keys(newItems).length > 0) {
+                dataDocument.create(selectedColName, newItems)
             }
+
             // delete
             let deletedItems = jseditor.isDelete();
             if (deletedItems.length > 0) {
@@ -61,10 +63,11 @@ module.exports = new Node({
                 })
             }
 
+
             // after operations
-            dataDocument.get(selectedColName).then(() => {
-                jseditor.render('.json_area', dataDocument.data.json, true);
-            });
+            // dataDocument.get(selectedColName).then(() => {
+            //     jseditor.render('.json_area', dataDocument.data.json, true);
+            // });
         },
         destroyEditor(){
             dataDocument.setState(STATE.UNDEFINED);

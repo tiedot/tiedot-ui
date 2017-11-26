@@ -19,12 +19,20 @@ let Editor = {
         this.lastJson.reset();
     },
     isNewDocument : function () {
-        return !Object.keys(this.lastJson.value).length
+        let newItem = {};
+        Object.keys(this.editor.get()).map((key) => {
+             if (Object.keys(this.lastJson.value).indexOf(key) === -1){
+                 newItem[key] = this.getJson()[key];
+             }
+        });
+        return newItem;
     },
     isDelete: function () {
         return Object.keys(this.lastJson.value).filter((value) => {
-           return Object.keys(this.editor.get()).indexOf(value) === -1
+           return Object.keys(this.getJson()).indexOf(value) === -1
         });
+    },
+    isUpdate: function () {
 
     }
 };
