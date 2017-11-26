@@ -36,6 +36,22 @@ let document = new DataObject({
                 }
             }
         });
+    },
+    delete(collectName, deletedItems){
+        this.setState(STATE.PROCESSING);
+        let mapPromises = deletedItems.map(function (id) {
+            return new Promise( (resolve, reject) => {
+                ajax.request({
+                    url: `${settings.host}/delete?col=${collectName}&id=${id}`,
+                    handler: {
+                        success: (transport, request, response) => {
+                            resolve();
+                        }
+                    }
+                });
+            })
+        });
+        return Promise.all(mapPromises);
     }
 });
 module.exports = document;

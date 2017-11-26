@@ -1,7 +1,5 @@
 let Value = require('basis.data').Value;
 
-const NEW_COLLECTION = '';
-
 let Editor = {
     // source object
     editor : null,
@@ -21,8 +19,13 @@ let Editor = {
         this.lastJson.reset();
     },
     isNewDocument : function () {
-        console.log( this.lastJson.value,  Object.keys(this.lastJson.value).length);
         return !Object.keys(this.lastJson.value).length
+    },
+    isDelete: function () {
+        return Object.keys(this.lastJson.value).filter((value) => {
+           return Object.keys(this.editor.get()).indexOf(value) === -1
+        });
+
     }
 };
 

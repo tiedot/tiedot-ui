@@ -53,7 +53,15 @@ module.exports = new Node({
             if (jseditor.isNewDocument()) {
                 dataDocument.create(selectedColName, jseditor.getJson())
             }
+            // delete
+            let deletedItems = jseditor.isDelete();
+            if (deletedItems.length > 0) {
+                dataDocument.delete(selectedColName, deletedItems).then(() => {
+                    dataDocument.setState(STATE.READY);
+                })
+            }
 
+            // after operations
             dataDocument.get(selectedColName).then(() => {
                 jseditor.render('.json_area', dataDocument.data.json, true);
             });
